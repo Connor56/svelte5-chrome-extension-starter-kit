@@ -4,14 +4,26 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --root tutorial",
+    "build:prepare": "tsx ./scripts/prebuild.ts",
+    "build": "npm run build:prepare && vite build",
+    "new:content": "tsx ./scripts/cli.ts new content",
+    "new:background": "tsx ./scripts/cli.ts new background",
+    "new:popup": "tsx ./scripts/cli.ts new popup",
+    "new:options": "tsx ./scripts/cli.ts new options",
+    "new:sidepanel": "tsx ./scripts/cli.ts new sidepanel",
+    "rename:extension": "tsx ./scripts/cli.ts rename",
+    "manifest:permission": "tsx ./scripts/cli.ts permission",
+    "version:set": "tsx ./scripts/cli.ts version set",
+    "version:bump": "tsx ./scripts/cli.ts version bump",
+    "zip": "tsx ./scripts/zip.ts",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@tsconfig/svelte": "^5.0.2",
+    "@types/node": "^20.12.7",
     "autoprefixer": "^10.4.18",
     "postcss": "^8.4.35",
     "svelte": "^5.0.0-next.68",
@@ -19,6 +31,7 @@
     "tailwindcss": "^3.4.1",
     "daisyui": "^4.7.3",
     "tslib": "^2.7.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "vite": "^5.1.4"
   }

@@ -56,7 +56,7 @@ Before you begin, ensure you have the following installed:
    npm run dev
    ```
 
-   This will start the Vite dev server for live reloading and hot module replacement (HMR). The extension will be pre-rendered for Chrome MV3 development.
+   This starts a tutorial site under `tutorial/` that explains how to use the starter. No UI is scaffolded by default into the extension.
 
 4. **Build for Production:**
 
@@ -64,7 +64,7 @@ Before you begin, ensure you have the following installed:
    npm run build
    ```
 
-   The production-ready extension will be output to the `dist/` directory.
+   This runs a prebuild step that detects entries (content, background, popup, options, sidepanel if present), generates a manifest without overwriting existing fields, and outputs into `dist/`.
 
 ---
 
@@ -83,13 +83,13 @@ Before you begin, ensure you have the following installed:
 ├── public/                 # Static assets (manifest.json, icons)
 ├── src/
 │   ├── background/         # Background scripts
-│   ├── content/            # Content scripts for injecting into web pages
+│   ├── content/            # Content scripts (*.ts) – tracked by scripts/config/content.json
+│   ├── sidepanel/          # Sidepanel UI components
 │   ├── popup/              # Popup UI components
 │   ├── lib/                # Reusable components and utilities
 │   ├── options/            # Options page components
-│   ├── styles/             # TailwindCSS styles
-│   ├── types/              # TypeScript declarations
-│   └── main.ts             # Entry point for the application
+│   ├── sidepanel/          # Side panel HTML + entry (index.html, main.ts)
+│   └── main.ts             # (moved to sidepanel/main.ts)
 ├── tailwind.config.js      # TailwindCSS configuration
 ├── tsconfig.json           # TypeScript configuration
 ├── vite.config.ts          # Vite configuration
@@ -99,9 +99,30 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## 📄 Manifest Configuration
+## 📄 Manifest & Build Configuration
 
-The **manifest.json** file is located in the `public/` directory and defines the Chrome extension’s permissions and entry points.
+Use `public/manifest.json` as the template. The prebuild step merges detected entries and `scripts/config/content.json` into a generated manifest at build time. Existing fields in `public/manifest.json` are never overwritten.
+
+CLI helper (added):
+
+```bash
+npm run build:prepare       # scans entries and writes scripts/.generated/{entries.json,manifest.json}
+node scripts/cli.mjs new content <name>  # creates src/content/<name>.ts and adds default config (<all_urls>)
+```
+
+---
+
+## 🗂️ `/src/lib` organization
+
+These folders are provided as empty organizational buckets you can opt into. Add files as you build features.
+
+- **`src/lib/messaging/`**: Utilities for structured message passing between background, content, popup, and options (e.g., request/response wrappers, type-safe channels).
+- **`src/lib/storage/`**: Helpers for `chrome.storage` and `localStorage` with namespacing and JSON schema validation.
+- **`src/lib/logger/`**: A tiny logger abstraction with levels and dev-friendly formatting.
+- **`src/lib/dom/`**: Small DOM utilities useful in content scripts (safe selectors, mounting helpers, style injection).
+- **`src/lib/types/`**: Shared TypeScript types and interfaces.
+
+You can remove or rename any of these as you see fit; they are intentionally empty to avoid imposing structure until needed.
 
 **Key Settings:**
 
@@ -120,12 +141,13 @@ The **manifest.json** file is located in the `public/` directory and defines the
     "default_icon": "icons/icon-128.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background/index.js"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content/index.js"]
+      "js": ["content/example.js"],
+      "run_at": "document_end"
     }
   ],
   "permissions": ["storage", "tabs"],
