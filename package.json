@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:prepare": "tsx ./scripts/prebuild.ts",
-    "build": "npm run build:prepare && vite build",
+    "dev:options": "vite --open /src/options/index.html",
+    "build": "vite build",
     "new:content": "tsx ./scripts/new-content.ts",
     "new:background": "tsx ./scripts/new-background.ts",
     "new:popup": "tsx ./scripts/new-popup.ts",
