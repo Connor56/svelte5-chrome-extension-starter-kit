@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:options": "vite --open /src/options/index.html",
+    "dev": "tsx ./scripts/dev.ts",
     "build": "vite build",
     "new:content": "tsx ./scripts/new-content.ts",
     "new:background": "tsx ./scripts/new-background.ts",
