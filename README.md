@@ -99,19 +99,6 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## 📄 Manifest & Build Configuration
-
-Use `public/manifest.json` as the template. The prebuild step merges detected entries and `scripts/config/content.json` into a generated manifest at build time. Existing fields in `public/manifest.json` are never overwritten.
-
-CLI helper (added):
-
-```bash
-npm run build:prepare       # scans entries and writes scripts/.generated/{entries.json,manifest.json}
-node scripts/cli.mjs new content <name>  # creates src/content/<name>.ts and adds default config (<all_urls>)
-```
-
----
-
 ## 🗂️ `/src/lib` organization
 
 These folders are provided as empty organizational buckets you can opt into. Add files as you build features.
