@@ -10,7 +10,7 @@
     "new:background": "tsx ./scripts/new-background.ts",
     "new:popup": "tsx ./scripts/new-popup.ts",
     "new:options": "tsx ./scripts/new-options.ts",
-    "new:sidepanel": "tsx ./scripts/sidepanel.ts",
+    "add:sidepanel": "tsx ./scripts/add-sidepanel.ts",
     "rename:extension": "tsx ./scripts/rename-extension.ts",
     "manifest:permission": "tsx ./scripts/manifest-permission.ts",
     "version:set": "tsx ./scripts/version-set.ts",
