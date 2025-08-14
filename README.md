@@ -31,40 +31,56 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/your-username/chrome-extension-starter.git
-   cd chrome-extension-starter
-   ```
+```bash
+git clone https://github.com/your-username/chrome-extension-starter.git
+cd chrome-extension-starter
+```
 
 2. **Install Dependencies:**
 
-   Using npm:
+Using npm:
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-   Or using pnpm:
+Or using pnpm:
 
-   ```bash
-   pnpm install
-   ```
+```bash
+pnpm install
+```
 
 3. **Run Development Server:**
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev <popup | options | sidepanel>
+```
 
-   This starts a tutorial site under `tutorial/` that explains how to use the starter. No UI is scaffolded by default into the extension.
+This starts a development server for the specified UI target. This will open the browser on the specified target. You will see a web address similar to the following:
+
+```
+http://localhost:5173/src/options/index.html
+```
+
+Looking at this you may be wondering, could you change this to `src/sidepanel/index.html` and load the sidepanel UI? The answer is yes, you can, which is great for working on multiple parts of your UI at once.
 
 4. **Build for Production:**
 
-   ```bash
-   npm run build
-   ```
+```bash
+npm run build
+```
 
-   This runs a prebuild step that detects entries (content, background, popup, options, sidepanel if present), generates a manifest without overwriting existing fields, and outputs into `dist/`.
+This runs a prebuild step that detects entries (content, background, popup, options, sidepanel if present), generates a manifest without overwriting existing fields, and outputs into `dist/`.
+
+---
+
+### Easy Development
+
+The point of this project is to streamline the development of Chrome extensions. Which is where the following set of `npm` scripts come in:
+
+- `npm run dev <popup | options | sidepanel>`: Starts a development server for the specified UI target.
+- `npm run build`: Builds the extension for production.
+- `npm run add:sidebar`: Adds a default sidepanel to the extension.
 
 ---
 
